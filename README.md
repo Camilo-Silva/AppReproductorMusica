@@ -1,27 +1,84 @@
-# Spotify
+# Spotify Clone
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.1.
+Este proyecto es un clon de Spotify desarrollado con Angular 17.3, que implementa un reproductor de música, gestión de usuarios, historial, favoritos y navegación modular. El objetivo es practicar arquitectura escalable, buenas prácticas y el uso de Angular moderno (standalone components, directivas y pipes).
 
-## Development server
+## Tabla de Contenidos
+- [Dependencias](#dependencias)
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Reproductor de Música](#reproductor-de-música)
+- [Instalación y Uso](#instalación-y-uso)
+- [Scripts Disponibles](#scripts-disponibles)
+- [Testing](#testing)
+- [Notas](#notas)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Dependencias
+Principales librerías y frameworks utilizados:
+- **@angular/core** ^17.3.0
+- **@angular/router** ^17.3.0
+- **@angular/forms** ^17.3.0
+- **rxjs** ~7.8.0
+- **express** ^4.18.2 (para SSR)
+- **zone.js** ~0.14.3
+- **Karma/Jasmine** (testing)
 
-## Code scaffolding
+## Estructura del Proyecto
+```
+src/app/
+  core/           # Modelos y lógica central (ej: models/artist.model.ts, tracks.model.ts)
+  data/           # Datos estáticos (ej: tracks.json)
+  modules/        # Módulos de funcionalidad (auth, favorites, history, home, tracks)
+    auth/         # Autenticación y páginas relacionadas
+    favorites/    # Favoritos
+    history/      # Historial
+    home/         # Página principal
+    tracks/       # Listado y detalles de canciones
+  shared/         # Componentes, directivas y pipes reutilizables
+    components/   # Ej: side-bar, card-player, media-player, header-user, etc.
+    directives/   # Ej: img-broken.directive.ts (gestiona imágenes rotas)
+    pipe/         # Ej: order-list.pipe.ts (ordenar listas)
+    shared.module.ts # Módulo compartido
+  app.routes.ts   # Definición de rutas principales
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Reproductor de Música
+El reproductor está implementado en el componente `media-player` y `card-player`. Permite mostrar la carátula, nombre y álbum de la canción, así como controles de reproducción. El sistema de imágenes rotas está gestionado por la directiva `appImgBroken`, que reemplaza la imagen por defecto si la original falla.
 
-## Build
+- El estado del reproductor se gestiona por componente y puede integrarse con servicios para manejar la reproducción global.
+- El diseño es responsivo y modular, permitiendo reutilizar componentes en diferentes vistas.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Instalación y Uso
+1. Clona el repositorio:
+   ```bash
+   git clone <url-del-repo>
+   cd spotify
+   ```
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+3. Inicia el servidor de desarrollo:
+   ```bash
+   npm start
+   # o
+   ng serve
+   ```
+   Accede a `http://localhost:4200/` en tu navegador.
 
-## Running unit tests
+## Scripts Disponibles
+- `npm start` / `ng serve`: Servidor de desarrollo
+- `npm run build`: Compilar la app
+- `npm test`: Ejecutar tests unitarios
+- `npm run serve:ssr:spotify`: Servir la app con SSR (Server Side Rendering)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Testing
+- Ejecuta `ng test` para correr los tests unitarios con Karma y Jasmine.
+- Los tests se encuentran junto a los componentes (`*.spec.ts`).
 
-## Running end-to-end tests
+## Notas
+- El proyecto utiliza Angular Standalone Components, Directivas y Pipes, por lo que deben importarse explícitamente donde se usen.
+- La estructura modular permite escalar fácilmente nuevas funcionalidades.
+- El diseño y la lógica del reproductor pueden ampliarse para soportar streaming real, integración con APIs, etc.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+---
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Desarrollado por Camilo Silva.
