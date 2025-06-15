@@ -12,11 +12,11 @@ import { title } from 'node:process';
 })
 export class MediaPlayerComponent {
   mockCover: TrackModel = {
-    cover:'https://i.scdn.co/image/ab67616d0000b273f2c8e4a1f3c5b6d7f9e4b6a2',
-    album: 'Mock Album',
-    name: 'Mock Name',
-    url: 'https://example.com/mock-url',
-    _id: 'Mock Artist',
+    _id: 1,
+    name: "Getting Over",
+    album: "One Love",
+    cover: "https://jenesaispop.com/wp-content/uploads/2009/09/guetta_onelove.jpg",
+    
   }
 
 }
