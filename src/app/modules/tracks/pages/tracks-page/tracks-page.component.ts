@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SectionGenericComponent } from "../../../../shared/components/section-generic/section-generic.component";
-import * as dataRaw from '../../../../data/tracks.json';
+
 import { TrackModel } from '@core/models/tracks.model';
+import { TrackService } from '@modules/tracks/services/track.service';
+import { response } from 'express';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tracks-page',
@@ -10,13 +13,25 @@ import { TrackModel } from '@core/models/tracks.model';
   templateUrl: './tracks-page.component.html',
   styleUrl: './tracks-page.component.css'
 })
-export class TracksPageComponent implements OnInit {
-  mockTracksList: Array<TrackModel> = [
+export class TracksPageComponent implements OnInit, OnDestroy {
+  tracksTrending: Array<TrackModel> = [];
+  tracksRandom: Array<TrackModel> = [];
+
+  listObservers$: Array<Subscription> = [];
+
+  constructor(private trackService: TrackService) {
+    
    
-  ];
+  }
 
   ngOnInit(): void {
-    const {data}:any = (dataRaw as any).default;
-    this.mockTracksList = data;
+    this.trackService.getAllTracks().subscribe((response: TrackModel[]) => {
+      this.tracksTrending = response;
+    }); 
+  }
+
+  ngOnDestroy(): void {
+    
+    
   }
 }

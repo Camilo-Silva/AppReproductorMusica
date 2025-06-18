@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '@modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -14,6 +15,8 @@ export class LoginPageComponent implements OnInit {
     
   });
   errorSession: boolean = false;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     this.formLogin = new FormGroup({
@@ -30,14 +33,10 @@ export class LoginPageComponent implements OnInit {
   }
 
   sendLogin(): void {
-    if (this.formLogin.valid) {
-      const values = this.formLogin.value;
-      console.log('Valores del formulario:', values);
-      // Aquí se agrega la lógica para enviar los datos al backend o servicio de autenticación
-    } else {
-      this.errorSession = true;
-      console.warn('Formulario inválido');
-    }
+    const { email, password } = this.formLogin.value;
+    
+    this.authService.sendCredentials(email, password);
+
   }
 
 }
