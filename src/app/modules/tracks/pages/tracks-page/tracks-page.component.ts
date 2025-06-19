@@ -3,8 +3,7 @@ import { SectionGenericComponent } from "../../../../shared/components/section-g
 
 import { TrackModel } from '@core/models/tracks.model';
 import { TrackService } from '@modules/tracks/services/track.service';
-import { response } from 'express';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tracks-page',
@@ -25,8 +24,12 @@ export class TracksPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.trackService.getAllTracks().subscribe((response: TrackModel[]) => {
+    this.trackService.getAllTracks$().subscribe((response: TrackModel[]) => {
       this.tracksTrending = response;
+    }); 
+
+    this.trackService.getAllRandom$().subscribe((response: TrackModel[]) => {
+      this.tracksRandom = response;
     }); 
   }
 
