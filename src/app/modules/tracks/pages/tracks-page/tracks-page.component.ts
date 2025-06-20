@@ -3,8 +3,8 @@ import { SectionGenericComponent } from "../../../../shared/components/section-g
 
 import { TrackModel } from '@core/models/tracks.model';
 import { TrackService } from '@modules/tracks/services/track.service';
-import { response } from 'express';
-import { Observable, Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-tracks-page',
@@ -25,13 +25,29 @@ export class TracksPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.trackService.getAllTracks().subscribe((response: TrackModel[]) => {
-      this.tracksTrending = response;
-    }); 
+    this.loadDataAll();
+    this.loadDataRandom();
+  }
+
+  async loadDataAll(): Promise<any> {
+    // this.tracksTrending = await this.trackService.getAllTracks$().toPromise()//forma deprecada
+    this.tracksTrending = await firstValueFrom(this.trackService.getAllTracks$());//Forma recomendada
+    // console.log('Datos de todas las canciones', dataRaw);
+  }
+
+  loadDataRandom(): void {
+    this.trackService.getAllRandom$().subscribe({
+      next: (response: TrackModel[]) => {
+        this.tracksRandom = response;}
+      // },
+      // error: (err) => {
+      //   console.log('Error al cargar las canciones aleatorias');
+      // }
+    });
   }
 
   ngOnDestroy(): void {
     
-    
   }
+
 }

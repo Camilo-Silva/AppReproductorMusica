@@ -75,6 +75,7 @@ El reproductor está implementado en el componente `media-player` y `card-player
 - Los tests se encuentran junto a los componentes (`*.spec.ts`).
 
 ## Notas
+- La APP es la versión 1.0.
 - El proyecto utiliza Angular Standalone Components, Directivas y Pipes, por lo que deben importarse explícitamente donde se usen.
 - La estructura modular permite escalar fácilmente nuevas funcionalidades.
 - El diseño y la lógica del reproductor pueden ampliarse para soportar streaming real, integración con APIs, etc.
