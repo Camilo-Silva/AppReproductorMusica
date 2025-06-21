@@ -20,18 +20,18 @@
             <div class="form-steps">
                 <a class="link" href="">¿Se te ha olvidado la contraseña?</a>
             </div>
-            <!-- <div *ngIf="errorSession">
+            <div *ngIf="errorSession">
                 Ocurrio un error con tu email o password
-            </div> -->
+            </div>
             <div class="form-action">
                 <button [disabled]="formLogin.invalid" class="login social-btn">Iniciar sesión</button>
             </div>
         </form>
-        <div>
+        <!-- <div>
             <hr>
             Invalido: {{ formLogin.invalid | json }}
             <br>
             Valido: {{ formLogin.valid | json }}
-        </div>
+        </div> -->
     </div>
 </div>
