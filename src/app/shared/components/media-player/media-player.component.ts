@@ -16,10 +16,12 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
   
   listObservers$: Array<Subscription> = [];//TODO: Se le llama como programación reactiva.
   // Esta propiedad se utiliza para almacenar las suscripciones a los observables.  
+  state: string = 'paused'; // Estado inicial del reproductor
 
   constructor(public multimediaService: MultimediaService) {}
 
   ngOnInit(): void {
+    const observer1$ = this.multimediaService.playerStatus$.subscribe(status => this.state = status);
     
     
   }
