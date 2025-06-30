@@ -12,25 +12,16 @@ import { Subscription } from 'rxjs';//TODO: Se le llama como programación react
   styleUrl: './media-player.component.css'
 })
 export class MediaPlayerComponent implements OnInit, OnDestroy {
-  mockCover: TrackModel = {
-    _id: 1,
-    name: "Getting Over",
-    album: "One Love",
-    cover: "https://jenesaispop.com/wp-content/uploads/2009/09/guetta_onelove.jpg",
-    
-  }
-
+  
+  
   listObservers$: Array<Subscription> = [];//TODO: Se le llama como programación reactiva.
   // Esta propiedad se utiliza para almacenar las suscripciones a los observables.  
 
-  constructor(private multimediaService: MultimediaService) {}
+  constructor(public multimediaService: MultimediaService) {}
 
   ngOnInit(): void {
-    const observer1$: Subscription = this.multimediaService.callback.subscribe((response: TrackModel) => {
-      console.log('Track recibido en el reproductor multimedia:', response);
-      // Aquí puedes manejar el response recibido y actualizar el reproductor multimedia
-    });
-    this.listObservers$.push(observer1$);
+    
+    
   }
 
   ngOnDestroy(): void {

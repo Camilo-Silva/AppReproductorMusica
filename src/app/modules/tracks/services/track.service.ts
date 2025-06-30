@@ -20,39 +20,62 @@ export class TrackService {
       resolve(listTmp);
     });
   }
+  // getAllTracks$(): Observable<any> {
+  //   return this.http.get(`${this.URL}/tracks`)
+  //   .pipe(
+  //     map(({data}: any) => {
+  //       return data.map((track: any) => ({
+  //         ...track,
+  //         url: `http://localhost:3001/api/1.0/tracks/${track.url}`
+  //       }));
+  //     })
+  //   );
+  // }
   getAllTracks$(): Observable<any> {
     return this.http.get(`${this.URL}/tracks`)
-    .pipe(
-      map(({data}:any) => {
-        return data
-      })
-    );
+      .pipe(
+        map(({ data }: any) => {
+          return data
+        })
+      )
   }
 
   /**
    * @returns Devolver canciones aleatorias
    */
+  // getAllRandom$(): Observable<any> {
+  //   return this.http.get(`${this.URL}/tracks`)
+  //     .pipe(
+  //       tap((data) => {
+  //         console.log('Antes de filtrar', data);
+  //       }),
+  //       mergeMap(({data}: any) => this.skipById(data, 1)),
+  //       map((tracks: any[]) =>
+  //         tracks.map((track: any) => ({
+  //           ...track,
+  //           url: `http://localhost:3001/api/1.0/tracks/${track.url}`
+  //         }))
+  //       ),
+  //       tap((data) => {
+  //         console.log('Después de filtrar', data);
+  //       }),
+  //       catchError((error) => {
+  //         console.log('Error al cargar las canciones aleatorias', error.message);
+  //         return of([]);
+  //       })
+  //     );
+  // }
   getAllRandom$(): Observable<any> {
     return this.http.get(`${this.URL}/tracks`)
-    .pipe(
-      // map(({data}: any) => { //TODO: Devolvemos lista de canciones revertida
-      //   return [...data].reverse();
-      // }),
-      // -----------------------
-      //  map((dataRevertida) => { //TODO: Aplicar un filter comun de array
-      //   return dataRevertida.filter((track: TrackModel) => track._id !== 1);
-      // })
-      tap((data) => {
-        console.log('Antes de filtrar', data);
-      }),
-      mergeMap(({data}: any) => this.skipById(data, 1)),//TODO: Aplicar un filter comun de array
-      tap((data) => {
-        console.log('Después de filtrar', data);
-      }),
-      catchError((error) => {
-        console.log('Error al cargar las canciones aleatorias', error.message);
-        return of([]);
-      })
-    );
+      .pipe(
+        mergeMap(({ data }: any) => this.skipById(data, 2)),
+        // map((dataRevertida) => { //TODO aplicar un filter comun de array
+        //   return dataRevertida.filter((track: TrackModel) => track._id !== 1)
+        // })
+        catchError((err) => {
+          const { status, statusText } = err;
+          return of([])
+        })
+      )
   }
 }

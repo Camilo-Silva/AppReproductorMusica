@@ -26,7 +26,8 @@ export class CardPlayerComponent {
   sendPlay(track: TrackModel): void {
     // console.log('Enviando track al servicio multimedia:', track);
     // Emitir el track seleccionado a través del servicio multimedia
-    this.multimediaService.callback.emit(track);
+    this.multimediaService.trackInfo$.next(track);
+    
   }
 
 }

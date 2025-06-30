@@ -8,13 +8,17 @@ export const sessionGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const cookieService = inject(CookieService);
 
-  const token = cookieService.get('token');
-  if (!token) {
-    router.navigate(['/auth/login']);
+  try {
+    const tokenExists = cookieService.check('token');
+    if (!tokenExists) {
+      router.navigate(['/auth/login']);
+      return false;
+    }
+    return true;
+  } catch (e) {
+    console.log('Algo sucedió ?? 🔴', e);
     return false;
   }
-  return true;
-
 };
 
 
