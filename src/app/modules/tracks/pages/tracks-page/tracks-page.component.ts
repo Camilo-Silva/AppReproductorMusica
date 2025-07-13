@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { MultimediaService } from '@shared/services/multimedia.service';
 import { SectionGenericComponent } from "../../../../shared/components/section-generic/section-generic.component";
 
 import { TrackModel } from '@core/models/tracks.model';
@@ -19,10 +20,12 @@ export class TracksPageComponent implements OnInit, OnDestroy {
 
   listObservers$: Array<Subscription> = [];
   private trackService = inject(TrackService);
+  private multimediaService = inject(MultimediaService);
 
   ngOnInit(): void {
     this.loadDataAll();
     this.loadDataRandom();
+    document.addEventListener('keydown', this.handleGlobalKey);
   }
 
   async loadDataAll(): Promise<any> {
@@ -43,7 +46,27 @@ export class TracksPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    
+    document.removeEventListener('keydown', this.handleGlobalKey);
+  }
+
+  handleGlobalKey = (event: KeyboardEvent) => {
+    const target = event.target as HTMLElement;
+    const isInput = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA';
+    const isButton = target.tagName === 'BUTTON';
+    if (isInput || isButton) return;
+
+    // Detectar barra espaciadora y enter
+    if (
+      event.key === ' ' ||
+      event.key === 'Spacebar' ||
+      event.code === 'Space' ||
+      event.keyCode === 32 ||
+      event.key === 'Enter' ||
+      event.keyCode === 13
+    ) {
+      event.preventDefault();
+      this.multimediaService.togglePlayer();
+    }
   }
 
 }
