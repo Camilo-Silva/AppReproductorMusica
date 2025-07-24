@@ -1,14 +1,22 @@
+
 import { TestBed } from '@angular/core/testing';
-import { HttpInterceptorFn } from '@angular/common/http';
+import { InjectTokenInterceptor } from './inject-token.interceptor';
+import { CookieService } from 'ngx-cookie-service';
 
-import { injectTokenInterceptor } from './inject-token.interceptor';
-
-describe('injectTokenInterceptor', () => {
-  const interceptor: HttpInterceptorFn = (req, next) => 
-    TestBed.runInInjectionContext(() => injectTokenInterceptor(req, next));
+describe('InjectTokenInterceptor', () => {
+  let interceptor: InjectTokenInterceptor;
+  let cookieServiceSpy: jasmine.SpyObj<CookieService>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    const spy = jasmine.createSpyObj('CookieService', ['get']);
+    TestBed.configureTestingModule({
+      providers: [
+        InjectTokenInterceptor,
+        { provide: CookieService, useValue: spy }
+      ]
+    });
+    interceptor = TestBed.inject(InjectTokenInterceptor);
+    cookieServiceSpy = TestBed.inject(CookieService) as jasmine.SpyObj<CookieService>;
   });
 
   it('should be created', () => {

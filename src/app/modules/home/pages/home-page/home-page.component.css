@@ -4,3 +4,11 @@
     background: linear-gradient(90deg, rgba(23, 23, 26, 1) 44%, rgba(24, 24, 24, 1) 100%);
     min-height: 100vh;
 }
+
+/* ===== RESPONSIVE DESIGN - MOBILE ONLY ===== */
+@media screen and (max-width: 768px) {
+    .home-wrapper {
+        margin: 0 0 85px 0; /* Eliminar margen lateral, agregar margen inferior para el player */
+        padding: 1rem;
+    }
+}

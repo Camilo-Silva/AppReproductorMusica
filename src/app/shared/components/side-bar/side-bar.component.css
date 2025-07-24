@@ -48,3 +48,61 @@
 .side-bar__list li {
     cursor: pointer;
 }
+
+/* ===== RESPONSIVE DESIGN - MOBILE ONLY ===== */
+@media screen and (max-width: 768px) {
+    .side-bar {
+        width: 100%;
+        height: auto;
+        position: fixed;
+        bottom: 85px; /* Encima del media player */
+        left: 0;
+        top: auto;
+        padding: 0.5rem 1rem;
+        background-color: var(--color-5);
+        border-top: solid 1px var(--color-2);
+        z-index: 3;
+        display: flex;
+        justify-content: center;
+    }
+
+    .side-bar__list {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        margin: 0;
+    }
+
+    .side-bar__list.list-one {
+        display: flex;
+    }
+
+    .side-bar__list.list-two,
+    .side-bar__list.list-three {
+        display: none; /* Ocultar menús secundarios en móvil */
+    }
+
+    .side-bar__list .list-wrapper-item {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.5rem;
+    }
+
+    .side-bar__list .list-wrapper-item .uil {
+        font-size: 1.5rem;
+        padding-right: 0;
+        margin-bottom: 0.25rem;
+    }
+
+    .side-bar__list .list-label {
+        font-size: 0.7rem;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .side-bar__separator {
+        display: none;
+    }
+}

@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TrackModel } from '@core/models/tracks.model';
 import { ImgBrokenDirective } from '@shared/directives/img-broken.directive';
 import { MultimediaService } from '@shared/services/multimedia.service';
+
 
 @Component({
   selector: 'app-card-player',
@@ -12,6 +13,22 @@ import { MultimediaService } from '@shared/services/multimedia.service';
   styleUrl: './card-player.component.css'
 })
 export class CardPlayerComponent {
+  constructor(private multimediaService: MultimediaService) {}
+
+  preventKey(event: KeyboardEvent): void {
+    if (
+      event.key === ' ' ||
+      event.key === 'Spacebar' ||
+      event.code === 'Space' ||
+      event.key === 'Enter' ||
+      event.keyCode === 13 ||
+      event.keyCode === 32
+    ) {
+      event.preventDefault();
+      event.stopPropagation();
+      this.multimediaService.togglePlayer();
+    }
+  }
   @Input() mode: 'small' | 'big' = 'small';
   @Input() track: TrackModel = {
     _id: '',
@@ -21,13 +38,12 @@ export class CardPlayerComponent {
     cover: ''
   };
 
-  constructor(private multimediaService: MultimediaService) { }
+  @Output() playTrack = new EventEmitter<TrackModel>();
 
-  sendPlay(track: TrackModel): void {
-    // console.log('Enviando track al servicio multimedia:', track);
-    // Emitir el track seleccionado a través del servicio multimedia
-    this.multimediaService.trackInfo$.next(track);
-    
+  onClick(): void {
+    this.playTrack.emit(this.track);
   }
+
+  // ...existing code...
 
 }
