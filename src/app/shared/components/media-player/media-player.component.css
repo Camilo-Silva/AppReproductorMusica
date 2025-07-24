@@ -153,3 +153,77 @@
     color: var(--color-4);
     font-size: var(--font-size-2);
 }
+
+/* ===== RESPONSIVE DESIGN - MOBILE ONLY ===== */
+@media screen and (max-width: 768px) {
+    .media-player {
+        height: auto;
+        min-height: 85px;
+        padding: 0.75rem 0;
+        max-height: 25vh; /* Limitar altura máxima en móvil */
+    }
+
+    .media-player .media-player--wrapper {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0 1rem;
+    }
+
+    .media-player--wrapper .artist {
+        width: 100%;
+        order: 1;
+        padding: 0;
+    }
+
+    .media-player--wrapper .player-controls {
+        width: 100%;
+        order: 2;
+        padding: 0;
+    }
+
+    .media-player--wrapper .player-audio {
+        width: 100%;
+        order: 3;
+        padding: 0;
+        justify-content: center;
+    }
+
+    .media-player--wrapper .artist .artist-inside {
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .media-player--wrapper .artist .artist-inside .cover {
+        width: 45px;
+        height: 45px;
+    }
+
+    .media-player--wrapper .artist .artist-inside .track-title {
+        font-size: 0.85rem;
+    }
+
+    .media-player--wrapper .artist .artist-inside .sub-title {
+        font-size: 0.75rem;
+    }
+
+    .media-player--wrapper .player-controls-inside .buttons-media .btn {
+        font-size: 1.4rem;
+    }
+
+    .media-player--wrapper .player-controls-inside .buttons-media .play {
+        font-size: 2rem;
+    }
+
+    .media-player--wrapper .player-controls-inside .media-linetime {
+        font-size: 0.65rem;
+    }
+
+    .media-player--wrapper .player-audio-inside {
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .media-player--wrapper .player-audio-inside .btn-media {
+        font-size: 1.2rem;
+    }
+}

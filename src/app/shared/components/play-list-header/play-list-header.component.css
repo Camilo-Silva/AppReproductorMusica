@@ -56,3 +56,60 @@
     opacity: .7;
     padding-left: .5rem;
 }
+
+/* ===== RESPONSIVE DESIGN - MOBILE ONLY ===== */
+@media screen and (max-width: 768px) {
+    .play-list-header {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .cover {
+        width: 100%;
+        padding: 1rem 0;
+        order: 1;
+    }
+
+    .cover .cover-mock {
+        width: 12rem;
+        height: 12rem;
+        font-size: 4rem;
+    }
+
+    .content-text {
+        padding: 1rem 0;
+        order: 2;
+        align-items: center;
+        text-align: center;
+    }
+
+    .content-text .title {
+        font-size: 3rem;
+        letter-spacing: -2px;
+        line-height: 1.1;
+    }
+
+    .content-text .small-text {
+        font-size: 0.9rem;
+    }
+
+    .content-text .count-tracks {
+        padding-left: 0;
+        padding-top: 0.25rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .cover .cover-mock {
+        width: 10rem;
+        height: 10rem;
+        font-size: 3rem;
+    }
+
+    .content-text .title {
+        font-size: 2.5rem;
+        letter-spacing: -1px;
+    }
+}

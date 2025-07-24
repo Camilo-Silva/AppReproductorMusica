@@ -83,3 +83,87 @@
     right: 0;
     top: 13rem
 }
+
+/* ===== RESPONSIVE DESIGN - MOBILE ONLY ===== */
+@media screen and (max-width: 768px) {
+    .card-player {
+        height: 4rem;
+    }
+
+    .card-player .cover {
+        width: 4rem;
+    }
+
+    .card-player .content-player {
+        padding: 0 0 0 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .card-player .buttons-player {
+        width: 4rem;
+    }
+
+    .card-player .buttons-player .play-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+
+    .card-player.player-big {
+        height: 15rem;
+        padding: 0.75rem;
+    }
+
+    .card-player.player-big .cover {
+        height: 160px;
+    }
+
+    .card-player.player-big .content-player {
+        padding: 0.4rem 0;
+    }
+
+    .card-player.player-big .content-player .sub-title-track {
+        font-size: 0.75rem;
+    }
+
+    .card-player.player-big .buttons-player {
+        top: 10.5rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .card-player {
+        height: 3.5rem;
+    }
+
+    .card-player .cover {
+        width: 3.5rem;
+    }
+
+    .card-player .content-player {
+        font-size: 0.85rem;
+    }
+
+    .card-player .buttons-player {
+        width: 3.5rem;
+    }
+
+    .card-player .buttons-player .play-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+
+    .card-player.player-big {
+        height: 12rem;
+        padding: 0.5rem;
+    }
+
+    .card-player.player-big .cover {
+        height: 130px;
+    }
+
+    .card-player.player-big .buttons-player {
+        top: 8.5rem;
+    }
+}

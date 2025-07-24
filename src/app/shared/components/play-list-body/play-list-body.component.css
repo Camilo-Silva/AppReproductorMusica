@@ -54,3 +54,71 @@
     font-size: 80%;
     opacity: .7;
 }
+
+/* ===== RESPONSIVE DESIGN - MOBILE ONLY ===== */
+@media screen and (max-width: 768px) {
+    .play-list-body {
+        padding: 0.5rem 1rem;
+    }
+
+    .play-list-table-header {
+        grid-template-columns: 2fr 1fr 1fr; /* Ocultar columna de duración en móvil */
+        font-size: 85%;
+        padding-bottom: 0.4rem;
+    }
+
+    .play-list-table-header li:last-child {
+        display: none; /* Ocultar columna de duración */
+    }
+
+    .play-list-rows {
+        grid-template-columns: 2fr 1fr 1fr; /* Ocultar columna de duración en móvil */
+        padding: 0.75rem 0 0 0;
+    }
+
+    .play-list-rows li:last-child {
+        display: none; /* Ocultar columna de duración */
+    }
+
+    .cover-section {
+        align-items: center;
+    }
+
+    .cover-section .cover-track {
+        width: 35px;
+        height: 35px;
+    }
+
+    .cover-section .cover-info {
+        padding: 0 0.75rem;
+    }
+
+    .cover-section .cover-info .name-track-details {
+        font-size: 75%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .play-list-body {
+        padding: 0.5rem;
+    }
+
+    .play-list-table-header,
+    .play-list-rows {
+        grid-template-columns: 1fr; /* Solo mostrar el nombre de la canción en pantallas muy pequeñas */
+    }
+
+    .play-list-table-header li:not(:first-child),
+    .play-list-rows li:not(:first-child) {
+        display: none;
+    }
+
+    .cover-section .cover-track {
+        width: 30px;
+        height: 30px;
+    }
+
+    .cover-section .cover-info {
+        padding: 0 0.5rem;
+    }
+}
