@@ -53,17 +53,18 @@
 @media screen and (max-width: 768px) {
     .side-bar {
         width: 100%;
-        height: auto;
+        height: 70px; /* Altura fija para mejor consistencia */
         position: fixed;
-        bottom: 85px; /* Encima del media player */
+        bottom: 110px; /* Ajustar para la nueva altura del media player */
         left: 0;
         top: auto;
-        padding: 0.5rem 1rem;
+        padding: 0.75rem 1rem;
         background-color: var(--color-5);
         border-top: solid 1px var(--color-2);
         z-index: 3;
         display: flex;
         justify-content: center;
+        align-items: center;
     }
 
     .side-bar__list {
@@ -72,10 +73,12 @@
         align-items: center;
         width: 100%;
         margin: 0;
+        height: 100%;
     }
 
     .side-bar__list.list-one {
         display: flex;
+        max-width: 400px; /* Limitar ancho máximo para pantallas grandes */
     }
 
     .side-bar__list.list-two,
@@ -86,23 +89,53 @@
     .side-bar__list .list-wrapper-item {
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         gap: 0.25rem;
-        padding: 0.5rem;
+        padding: 0.5rem 1rem;
+        min-height: 44px; /* Área de toque mínima */
+        border-radius: 8px;
+        transition: background-color 0.2s ease;
+    }
+
+    .side-bar__list .list-wrapper-item:hover {
+        background-color: rgba(255, 255, 255, 0.1);
     }
 
     .side-bar__list .list-wrapper-item .uil {
-        font-size: 1.5rem;
+        font-size: 1.6rem; /* Iconos más grandes */
         padding-right: 0;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.1rem;
     }
 
     .side-bar__list .list-label {
-        font-size: 0.7rem;
+        font-size: 0.75rem; /* Texto más legible */
         text-align: center;
         white-space: nowrap;
+        font-weight: 500;
     }
 
     .side-bar__separator {
         display: none;
+    }
+}
+
+/* Ajuste para pantallas muy pequeñas */
+@media screen and (max-width: 480px) {
+    .side-bar {
+        bottom: 105px; /* Ajustar para la altura del media player en pantallas pequeñas */
+        height: 65px;
+        padding: 0.5rem;
+    }
+
+    .side-bar__list .list-wrapper-item {
+        padding: 0.25rem 0.75rem;
+    }
+
+    .side-bar__list .list-wrapper-item .uil {
+        font-size: 1.4rem;
+    }
+
+    .side-bar__list .list-label {
+        font-size: 0.7rem;
     }
 }
