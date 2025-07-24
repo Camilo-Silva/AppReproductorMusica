@@ -1,0 +1,6 @@
+/* ===== RESPONSIVE DESIGN - MOBILE ONLY ===== */
+@media screen and (max-width: 768px) {
+    .favorite-page {
+        padding: 0.5rem;
+    }
+}

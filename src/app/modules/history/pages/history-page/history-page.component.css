@@ -3,3 +3,10 @@
     padding: .65rem 0;
     
 }
+
+/* ===== RESPONSIVE DESIGN - MOBILE ONLY ===== */
+@media screen and (max-width: 768px) {
+    .history-page {
+        padding: 0.5rem 0;
+    }
+}

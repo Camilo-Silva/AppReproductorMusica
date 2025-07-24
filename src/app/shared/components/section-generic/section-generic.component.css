@@ -17,3 +17,29 @@
 .section--generic__player--zone .player--list.card-big {
     grid-template-columns: repeat(6, minmax(100px, 1fr));
 }
+
+/* ===== RESPONSIVE DESIGN - MOBILE ONLY ===== */
+@media screen and (max-width: 768px) {
+    .section--generic {
+        margin-bottom: 1.5rem;
+    }
+
+    .section--generic__player--zone .player--list {
+        gap: 0.8rem;
+    }
+
+    .section--generic__player--zone .player--list.card-small {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil */
+    }
+
+    .section--generic__player--zone .player--list.card-big {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .section--generic__player--zone .player--list.card-small,
+    .section--generic__player--zone .player--list.card-big {
+        grid-template-columns: 1fr; /* 1 columna en pantallas muy pequeñas */
+    }
+}
