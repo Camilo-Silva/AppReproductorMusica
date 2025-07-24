@@ -1,4 +1,23 @@
 
+<!-- TOAST DE INFORMACIÓN DE CANCIÓN -->
+<div class="song-info-toast" [ngClass]="{'show': showToast}">
+    <div class="toast-content" *ngIf="multimediaService.trackInfo$ | async as currentTrack">
+        <img [src]="currentTrack?.cover" alt="" class="toast-cover">
+        <div class="toast-info">
+            <h3 class="toast-title">{{currentTrack?.name}}</h3>
+            <h5 class="toast-artist">{{currentTrack?.album}}</h5>
+        </div>
+        <div class="toast-controls">
+            <button class="toast-like">
+                <i class="uil uil-heart"></i>
+            </button>
+            <button class="toast-close" (click)="hideToast()">
+                <i class="uil uil-times"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
 <div class="media-player">
     <div class="media-player--wrapper ">
         <!--Zona del artista-->

@@ -8,7 +8,13 @@
 /* ===== RESPONSIVE DESIGN - MOBILE ONLY ===== */
 @media screen and (max-width: 768px) {
     .home-wrapper {
-        margin: 0 0 85px 0; /* Eliminar margen lateral, agregar margen inferior para el player */
+        margin: 0 0 160px 0; /* Margen reducido: sidebar compacto (50px) + media player (110px) */
         padding: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .home-wrapper {
+        margin: 0 0 150px 0; /* Margen aún más reducido para pantallas pequeñas */
     }
 }
