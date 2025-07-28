@@ -35,7 +35,10 @@ export class TrackService {
     return this.http.get(`${this.URL}/tracks`)
       .pipe(
         map(({ data }: any) => {
-          return data
+          return data.map((track: any) => ({
+            ...track,
+            url: `https://api-reproductormusica-production.up.railway.app/${track.url}`
+          }));
         })
       )
   }
@@ -68,10 +71,13 @@ export class TrackService {
   getAllRandom$(): Observable<any> {
     return this.http.get(`${this.URL}/tracks`)
       .pipe(
-        mergeMap(({ data }: any) => this.skipById(data, 2)),
-        // map((dataRevertida) => { //TODO aplicar un filter comun de array
-        //   return dataRevertida.filter((track: TrackModel) => track._id !== 1)
-        // })
+        map(({ data }: any) => {
+          return data.map((track: any) => ({
+            ...track,
+            url: `https://api-reproductormusica-production.up.railway.app/${track.url}`
+          }));
+        }),
+        mergeMap((tracks: any) => this.skipById(tracks, 2)),
         catchError((err) => {
           const { status, statusText } = err;
           return of([])
