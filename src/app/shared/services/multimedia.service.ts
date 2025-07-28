@@ -52,9 +52,7 @@ export class MultimediaService {
   };
 
   private calculateTime = () => {
-    // console.log('Calculando tiempo de reproducción');
     const { currentTime, duration } = this.audio;
-    // console.table([duration, currentTime]);
     this.setTimeElapsed(currentTime);
     this.setTimeRemaining(currentTime, duration);
     this.setPorcentage(currentTime, duration);
@@ -91,9 +89,10 @@ export class MultimediaService {
 
   //Funciones publicas
   public setAudio(track: TrackModel): void {
-    console.log('🛑🛑🛑🛑🛑🛑🛑🛑🛑 setAudio', track);
     this.audio.src = track.url ?? '';
-    this.audio.play();
+    this.audio.play().catch(error => {
+      console.error('Error al reproducir audio:', error);
+    });
   }
 
   public togglePlayer(): void {

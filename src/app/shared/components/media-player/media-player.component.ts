@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { TrackModel } from '@core/models/tracks.model';
 import { MultimediaService } from '@shared/services/multimedia.service';
 import { Subscription } from 'rxjs';//TODO: Se le llama como programación reactiva.
@@ -9,29 +9,73 @@ import { Subscription } from 'rxjs';//TODO: Se le llama como programación react
   standalone: true,
   imports: [CommonModule],
   templateUrl: './media-player.component.html',
-  styleUrl: './media-player.component.css'
+  styleUrl: './media-player.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MediaPlayerComponent implements OnInit, OnDestroy {
   
   @ViewChild('progressBar') progressBar: ElementRef = new ElementRef('');
+  @ViewChild('timeElapsedElement') timeElapsedElement: ElementRef = new ElementRef('');
+  @ViewChild('timeRemainingElement') timeRemainingElement: ElementRef = new ElementRef('');
   listObservers$: Array<Subscription> = [];//TODO: Se le llama como programación reactiva.
   // Esta propiedad se utiliza para almacenar las suscripciones a los observables.  
   state: string = 'paused'; // Estado inicial del reproductor
   showToast: boolean = false; // Controla la visibilidad del toast
   toastTimer: any; // Timer para ocultar el toast automáticamente
+  
+  // Propiedades para los tiempos
+  timeElapsed: string = '00:00';
+  timeRemaining: string = '-00:00';
+  playerPercentage: number = 0;
 
-  constructor(public multimediaService: MultimediaService) {}
+  constructor(public multimediaService: MultimediaService, private cdr: ChangeDetectorRef, private ngZone: NgZone) {}
 
   ngOnInit(): void {
     const observer1$ = this.multimediaService.playerStatus$.subscribe(status => {
-      this.state = status;
-      // Mostrar toast cuando comienza a reproducir
-      if (status === 'playing') {
-        this.showTrackToast();
-      }
+      this.ngZone.run(() => {
+        this.state = status;
+        // Mostrar toast cuando comienza a reproducir
+        if (status === 'playing') {
+          this.showTrackToast();
+        }
+        this.cdr.markForCheck();
+      });
     });
     
-    this.listObservers$.push(observer1$);
+    const observer2$ = this.multimediaService.timeElapsed$.subscribe(time => {
+      this.ngZone.run(() => {
+        this.timeElapsed = time;
+        
+        // Actualizar DOM directamente como fallback
+        if (this.timeElapsedElement && this.timeElapsedElement.nativeElement) {
+          this.timeElapsedElement.nativeElement.textContent = time;
+        }
+        
+        this.cdr.markForCheck();
+      });
+    });
+    
+    const observer3$ = this.multimediaService.timeRemaining$.subscribe(time => {
+      this.ngZone.run(() => {
+        this.timeRemaining = time;
+        
+        // Actualizar DOM directamente como fallback
+        if (this.timeRemainingElement && this.timeRemainingElement.nativeElement) {
+          this.timeRemainingElement.nativeElement.textContent = time;
+        }
+        
+        this.cdr.markForCheck();
+      });
+    });
+    
+    const observer4$ = this.multimediaService.playerPorcentage$.subscribe(percentage => {
+      this.ngZone.run(() => {
+        this.playerPercentage = percentage;
+        this.cdr.markForCheck();
+      });
+    });
+    
+    this.listObservers$.push(observer1$, observer2$, observer3$, observer4$);
   }
 
   ngOnDestroy(): void {
@@ -41,7 +85,6 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
     if (this.toastTimer) {
       clearTimeout(this.toastTimer);
     }
-    console.log('🛑🛑🛑🛑🛑🛑🛑🛑🛑 BOOOM MediaPlayerComponent destruido');
   }
 
   showTrackToast(): void {
@@ -71,9 +114,8 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
     const elNative: HTMLElement = this.progressBar.nativeElement
     const { clientX } = event
     const { x, width } = elNative.getBoundingClientRect()
-    const clickX = clientX - x //TODO: 1050 - x
+    const clickX = clientX - x
     const percentageFromX = (clickX * 100) / width
-    console.log(`Click(x): ${percentageFromX}`);
     this.multimediaService.seekAudio(percentageFromX);
   }
 

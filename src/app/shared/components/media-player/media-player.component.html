@@ -68,12 +68,12 @@
             </button>
         </div>
         <div class="media-linetime">
-            <div class="time">{{multimediaService.timeElapsed$ | async}}</div>
+            <div #timeElapsedElement class="time">{{timeElapsed}}</div>
             <span #progressBar (click)="handlePosition($event)" class="time-progress">
-                <span class="time-progress-live" [style.width]="(multimediaService.playerPorcentage$ | async) + '%'">
+                <span class="time-progress-live" [style.width]="playerPercentage + '%'">
                 </span>
             </span>
-            <div class="time">{{multimediaService.timeRemaining$ | async}}</div>
+            <div #timeRemainingElement class="time">{{timeRemaining}}</div>
         </div>
     </div>
 </ng-template>
