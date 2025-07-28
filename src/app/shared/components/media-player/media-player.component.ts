@@ -119,4 +119,16 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
     this.multimediaService.seekAudio(percentageFromX);
   }
 
+  nextTrack(): void {
+    this.multimediaService.nextTrack();
+  }
+
+  previousTrack(): void {
+    this.multimediaService.previousTrack();
+  }
+
+  get hasTrackList(): boolean {
+    return this.multimediaService.trackList.length > 0;
+  }
+
 }

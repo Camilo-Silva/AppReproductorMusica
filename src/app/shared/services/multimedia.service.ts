@@ -15,6 +15,10 @@ export class MultimediaService {
   public timeRemaining$: BehaviorSubject<string> = new BehaviorSubject('-00:00');
   public playerStatus$: BehaviorSubject<string> = new BehaviorSubject('paused');
   public playerPorcentage$: BehaviorSubject<number> = new BehaviorSubject(0);
+  
+  // Propiedades para navegación de canciones
+  public trackList: TrackModel[] = [];
+  public currentTrackIndex: number = -1;
 
   constructor() {
     this.audio = new Audio();
@@ -44,6 +48,8 @@ export class MultimediaService {
         break;
       case 'ended':
         this.playerStatus$.next('ended');
+        // Reproducir automáticamente la siguiente canción al finalizar
+        this.nextTrack();
         break;
       default:
         this.playerStatus$.next('paused');
@@ -88,7 +94,13 @@ export class MultimediaService {
   }
 
   //Funciones publicas
-  public setAudio(track: TrackModel): void {
+  public setAudio(track: TrackModel, trackList?: TrackModel[]): void {
+    // Si se proporciona una lista, actualizar la lista y encontrar el índice
+    if (trackList && trackList.length > 0) {
+      this.trackList = trackList;
+      this.currentTrackIndex = trackList.findIndex(t => t._id === track._id);
+    }
+    
     this.audio.src = track.url ?? '';
     this.audio.play().catch(error => {
       console.error('Error al reproducir audio:', error);
@@ -107,5 +119,33 @@ export class MultimediaService {
     const { duration } = this.audio
     const percentageToSecond = (percentage * duration) / 100
     this.audio.currentTime = percentageToSecond
+  }
+
+  public nextTrack(): void {
+    if (this.trackList.length === 0) return;
+    
+    // Si no hay índice actual o es el último, ir al primero
+    if (this.currentTrackIndex === -1 || this.currentTrackIndex >= this.trackList.length - 1) {
+      this.currentTrackIndex = 0;
+    } else {
+      this.currentTrackIndex++;
+    }
+    
+    const nextTrack = this.trackList[this.currentTrackIndex];
+    this.trackInfo$.next(nextTrack);
+  }
+
+  public previousTrack(): void {
+    if (this.trackList.length === 0) return;
+    
+    // Si no hay índice actual o es el primero, ir al último
+    if (this.currentTrackIndex === -1 || this.currentTrackIndex <= 0) {
+      this.currentTrackIndex = this.trackList.length - 1;
+    } else {
+      this.currentTrackIndex--;
+    }
+    
+    const previousTrack = this.trackList[this.currentTrackIndex];
+    this.trackInfo$.next(previousTrack);
   }
 }

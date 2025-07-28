@@ -271,6 +271,16 @@
     font-size: 2.35rem;
 }
 
+.media-player--wrapper .player-controls-inside .buttons-media .btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.media-player--wrapper .player-controls-inside .buttons-media .btn:disabled:hover {
+    opacity: 0.4;
+    transform: none;
+}
+
 .media-player--wrapper .player-controls-inside .media-linetime {
     display: flex;
     justify-content: space-between;

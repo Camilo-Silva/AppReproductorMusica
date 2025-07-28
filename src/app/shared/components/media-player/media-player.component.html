@@ -56,14 +56,14 @@
 <ng-template #playerZone>
     <div class="player-controls-inside">
         <div class="buttons-media">
-            <button class="arrow btn">
+            <button class="arrow btn" (click)="previousTrack()" [disabled]="!hasTrackList">
                 <i class="uil uil-previous"></i>
             </button>
             <button class="play btn" (click)="multimediaService.togglePlayer()">
                 <i [ngClass]="{'uil-pause-circle': state === 'playing', 'uil-play-circle': state === 'paused'}" class="uil"></i>
                   
             </button>
-            <button class="arrow btn">
+            <button class="arrow btn" (click)="nextTrack()" [disabled]="!hasTrackList">
                 <i class="uil uil-step-forward"></i>
             </button>
         </div>

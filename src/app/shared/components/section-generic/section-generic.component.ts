@@ -19,6 +19,8 @@ export class SectionGenericComponent {
   constructor(private multimediaService: MultimediaService) {}
 
   playTrack(track: TrackModel): void {
+    // Pasar la canción y la lista completa para habilitar navegación
+    this.multimediaService.setAudio(track, this.dataTracks);
     this.multimediaService.trackInfo$.next(track);
   }
 }
