@@ -11,6 +11,6 @@ export const routes: Routes = [
     path: '', // (Privado) Solo accesible si hay sesión iniciada
     component: HomePageComponent,
     loadChildren: () => import(`./modules/home/home.module`).then(m => m.HomeModule),
-    canActivate: [sessionGuard] // Proteger esta ruta con el guard de sesión
+    // canActivate: [sessionGuard] // Comentado temporalmente para producción
   }
 ];
