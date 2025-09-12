@@ -9,13 +9,19 @@ export class InjectTokenInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     try {
-      const token = this.cookieService.get('token');
-      const newReq = req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      return next.handle(newReq);
+      // Usar el mismo nombre de cookie que se guarda en auth.service.ts
+      const token = this.cookieService.get('token_Service');
+      
+      if (token) {
+        const newReq = req.clone({
+          setHeaders: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        return next.handle(newReq);
+      }
+      
+      return next.handle(req);
     } catch (error) {
       console.log('Error in InjectTokenInterceptor:', error);
       return next.handle(req);
