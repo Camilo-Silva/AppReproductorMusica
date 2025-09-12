@@ -1,72 +1,11 @@
 [build]
   publish = "dist/spotify"
-  command = "npm install && ng build --configuration production"
-  functions = "netlify/functions"
+  command = "ng build --configuration production"
 
-[build.environment]
-  NODE_VERSION = "18"
-
-[functions]
-  node_bundler = "esbuild"
-
-# Redirects para las rutas de la API
-[[redirects]]
-  from = "/api/1.0/hello"
-  to = "/.netlify/functions/hello"
-  status = 200
-
-[[redirects]]
-  from = "/api/1.0/auth/*"
-  to = "/.netlify/functions/auth/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/api/1.0/tracks/*"
-  to = "/.netlify/functions/tracks/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/api/1.0/tracks"
-  to = "/.netlify/functions/tracks"
-  status = 200
-
-[[redirects]]
-  from = "/api/1.0/audio/*"
-  to = "/.netlify/functions/audio/:splat"
-  status = 200
-
-# Servir archivos estáticos directamente
-[[redirects]]
-  from = "/api/1.0/tracks/*.mp3"
-  to = "/public/:splat"
-  status = 200
-
-# Redirect para Angular SPA - debe ir al final
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-# Headers CORS
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept, Authorization, Cache-Control"
-    Access-Control-Allow-Methods = "GET, POST, OPTIONS, PUT, DELETE, PATCH"
-
-# Headers específicos para archivos de audio
-[[headers]]
-  for = "*.mp3"
-  [headers.values]
-    Content-Type = "audio/mpeg"
-    Cache-Control = "public, max-age=31536000"
-    Access-Control-Allow-Origin = "*"
-
-# Headers para las funciones
-[[headers]]
-  for = "/.netlify/functions/*"
-  [headers.values]
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept, Authorization, Cache-Control"
-    Access-Control-Allow-Methods = "GET, POST, OPTIONS, PUT, DELETE, PATCH"
+[build.environment]
+  NODE_VERSION = "18"
